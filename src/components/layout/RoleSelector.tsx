@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { SkiIcon, Users, School } from "lucide-react";
+import { Snowflake, Users, School } from "lucide-react";
 
 type Role = "student" | "instructor" | "admin";
 
@@ -24,7 +24,7 @@ const RoleSelector: React.FC = () => {
         <RoleCard 
           title="Student" 
           description="Book lessons and discover instructors"
-          icon={<SkiIcon size={32} />}
+          icon={<Snowflake size={32} />}
           onClick={() => handleRoleSelect("student")}
           color="bg-ski-light-blue"
           textColor="text-ski-blue"
