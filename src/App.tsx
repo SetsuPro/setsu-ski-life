@@ -20,6 +20,8 @@ import Profile from "./pages/Profile";
 import Instructors from "./pages/Instructors";
 import Finances from "./pages/Finances";
 import Settings from "./pages/Settings";
+import FindInstructor from "./pages/FindInstructor";
+import FindCourses from "./pages/FindCourses";
 
 // Layout
 import Navbar from "./components/layout/Navbar";
@@ -47,6 +49,8 @@ const App = () => (
             <Route path="/instructors" element={<Instructors />} />
             <Route path="/finances" element={<Finances />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/find-instructor" element={<FindInstructor />} />
+            <Route path="/find-courses" element={<FindCourses />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
