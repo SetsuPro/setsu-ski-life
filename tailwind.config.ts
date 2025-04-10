@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,16 +53,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+				// Custom colors for Setsu app
+				'ski-blue': 'hsl(var(--ski-blue))',
+				'ski-light-blue': 'hsl(var(--ski-light-blue))',
+				'ski-purple': 'hsl(var(--ski-purple))',
+				'ski-light-purple': 'hsl(var(--ski-light-purple))',
+				'ski-orange': 'hsl(var(--ski-orange))',
+				'ski-light-green': 'hsl(var(--ski-light-green))',
+				'ski-gray': 'hsl(var(--ski-gray))',
+				'ski-dark': 'hsl(var(--ski-dark))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
