@@ -1,10 +1,21 @@
-
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Mail, Phone, Globe, Languages, Award, LogOut } from "lucide-react";
 
 const Profile: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    // Remove user role and logged-in status from localStorage
+    localStorage.removeItem("setsu-user-role");
+    localStorage.removeItem("setsu-user-logged-in");
+    
+    // Redirect to the index page
+    navigate("/");
+  };
+
   return (
     <div className="container pb-20 pt-6">
       <h1 className="text-2xl font-bold mb-6">My Profile</h1>
@@ -84,7 +95,11 @@ const Profile: React.FC = () => {
           </CardContent>
         </Card>
         
-        <Button variant="destructive" className="flex gap-2">
+        <Button 
+          variant="destructive" 
+          className="flex gap-2"
+          onClick={handleSignOut}
+        >
           <LogOut size={16} />
           Sign Out
         </Button>
