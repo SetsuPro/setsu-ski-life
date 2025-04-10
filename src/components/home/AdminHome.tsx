@@ -5,8 +5,10 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const AdminHome: React.FC = () => {
+  const navigate = useNavigate();
   const [revenueDialogOpen, setRevenueDialogOpen] = useState(false);
   const [bookingsDialogOpen, setBookingsDialogOpen] = useState(false);
   const [instructorDialogOpen, setInstructorDialogOpen] = useState(false);
@@ -18,7 +20,11 @@ const AdminHome: React.FC = () => {
   };
 
   const handleActionClick = (action: string) => {
-    toast.success(`${action} action initiated!`);
+    if (action === "Add Instructor") {
+      navigate("/instructors?tab=add");
+    } else {
+      toast.success(`${action} action initiated!`);
+    }
   };
 
   return (
@@ -101,7 +107,13 @@ const AdminHome: React.FC = () => {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-medium">Instructors</h3>
-            <Button variant="outline" size="sm" onClick={() => toast.success("Viewing all instructors")}>View All</Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => navigate("/instructors")}
+            >
+              View All
+            </Button>
           </div>
           
           <div className="space-y-3">

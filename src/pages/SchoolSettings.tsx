@@ -22,7 +22,7 @@ import { toast } from "sonner";
 
 const SchoolSettings: React.FC = () => {
   const [schoolInfo, setSchoolInfo] = useState({
-    name: "Whistler Ski School",
+    name: "虾滑 ShredHub Snow School",
     address: "4545 Blackcomb Way, Whistler, BC V8E 0X7, Canada",
     email: "info@whistlerskischool.com",
     phone: "+1 (555) 123-4567",
