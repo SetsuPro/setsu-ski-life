@@ -24,7 +24,7 @@ const AdminHome: React.FC = () => {
   return (
     <div className="pb-20">
       <div className="bg-gradient-to-r from-emerald-600 to-green-500 p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">Whistler Ski School</h1>
+        <h1 className="text-2xl font-bold mb-2">虾滑 ShreDHub Snow School</h1>
         <p className="text-white/80">Admin Dashboard</p>
       </div>
 
