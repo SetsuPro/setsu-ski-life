@@ -25,6 +25,7 @@ import FindCourses from "./pages/FindCourses";
 import Payments from "./pages/Payments";
 import SchoolSettings from "./pages/SchoolSettings";
 import Statistics from "./pages/Statistics";
+import SchoolCourses from "./pages/SchoolCourses";
 
 // Layout
 import Navbar from "./components/layout/Navbar";
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/instructor/:id" element={<InstructorDetail />} />
             <Route path="/booking/:id" element={<BookingFlow />} />
             <Route path="/my-courses" element={<MyCourses />} />
+            <Route path="/school-courses" element={<SchoolCourses />} />
             <Route path="/my-photos" element={<MyPhotos />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/earnings" element={<Earnings />} />

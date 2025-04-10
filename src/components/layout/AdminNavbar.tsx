@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Users, DollarSign, Settings } from "lucide-react";
+import { Home, Users, DollarSign, Settings, BookOpen } from "lucide-react";
 
 const AdminNavbar: React.FC = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const AdminNavbar: React.FC = () => {
 
   return (
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200">
-      <div className="grid h-full grid-cols-4">
+      <div className="grid h-full grid-cols-5">
         <NavItem 
           to="/home" 
           icon={<Home size={20} />} 
@@ -22,10 +22,16 @@ const AdminNavbar: React.FC = () => {
           isActive={getActiveClass("/home")} 
         />
         <NavItem 
-          to="/my-courses" 
-          icon={<Users size={20} />} 
+          to="/school-courses" 
+          icon={<BookOpen size={20} />} 
           label="Courses" 
-          isActive={getActiveClass("/my-courses")} 
+          isActive={getActiveClass("/school-courses")} 
+        />
+        <NavItem 
+          to="/instructors" 
+          icon={<Users size={20} />} 
+          label="Instructors" 
+          isActive={getActiveClass("/instructors")} 
         />
         <NavItem 
           to="/payments" 

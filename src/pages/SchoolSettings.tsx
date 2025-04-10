@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,8 @@ import {
   Settings, 
   FileText, 
   Save,
-  CreditCard
+  CreditCard,
+  LogOut
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
@@ -47,6 +47,12 @@ const SchoolSettings: React.FC = () => {
 
   const handleSaveNotifications = () => {
     toast.success("Notification preferences updated!");
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("setsu-user-logged-in");
+    localStorage.removeItem("setsu-user-role");
+    window.location.href = "/";
   };
 
   return (
@@ -85,11 +91,16 @@ const SchoolSettings: React.FC = () => {
               
               <div className="space-y-2">
                 <label className="text-sm text-muted-foreground">Address</label>
-                <Input
-                  value={schoolInfo.address}
-                  onChange={(e) => handleChange('address', e.target.value)}
-                  icon={<MapPin className="h-4 w-4" />}
-                />
+                <div className="flex">
+                  <div className="flex items-center px-3 border border-r-0 rounded-l-md bg-muted">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <Input
+                    className="rounded-l-none"
+                    value={schoolInfo.address}
+                    onChange={(e) => handleChange('address', e.target.value)}
+                  />
+                </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
@@ -368,6 +379,19 @@ const SchoolSettings: React.FC = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      
+      <Card className="mt-6">
+        <CardContent className="p-4">
+          <Button 
+            variant="destructive" 
+            className="w-full flex items-center justify-center"
+            onClick={handleSignOut}
+          >
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };
