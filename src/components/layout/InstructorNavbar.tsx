@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Calendar, DollarSign, User } from "lucide-react";
+import { Home, Calendar, DollarSign, FileText, User } from "lucide-react";
 
 const InstructorNavbar: React.FC = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const InstructorNavbar: React.FC = () => {
 
   return (
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200">
-      <div className="grid h-full grid-cols-4">
+      <div className="grid h-full grid-cols-5">
         <NavItem 
           to="/home" 
           icon={<Home size={20} />} 
@@ -32,6 +32,12 @@ const InstructorNavbar: React.FC = () => {
           icon={<DollarSign size={20} />} 
           label="Earnings" 
           isActive={getActiveClass("/earnings")} 
+        />
+        <NavItem 
+          to="/statistics" 
+          icon={<FileText size={20} />} 
+          label="Stats" 
+          isActive={getActiveClass("/statistics")} 
         />
         <NavItem 
           to="/profile" 

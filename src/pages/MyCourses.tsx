@@ -3,13 +3,30 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Clock, MapPin, ChevronRight, Star } from "lucide-react";
+import { Calendar, Clock, MapPin, ChevronRight, Star, Plus } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { toast } from "sonner";
+import CourseDetailDialog from "@/components/course/CourseDetailDialog";
+
+export interface CourseType {
+  id: string;
+  title: string;
+  instructorName: string;
+  instructorImage: string;
+  date: string;
+  time: string;
+  resort: string;
+  level: string;
+  hasRated?: boolean;
+  isStarted?: boolean;
+}
 
 const MyCourses: React.FC = () => {
   const [showRatingDialog, setShowRatingDialog] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<CourseType | null>(null);
   const [rating, setRating] = useState(0);
+  const [showDetailDialog, setShowDetailDialog] = useState(false);
+  const userRole = localStorage.getItem("setsu-user-role");
   
   const handleRateCourse = (course: CourseType) => {
     setSelectedCourse(course);
@@ -18,17 +35,36 @@ const MyCourses: React.FC = () => {
   
   const handleSubmitRating = () => {
     // Here you would submit the rating to your backend
+    toast.success("Rating submitted successfully!");
     setShowRatingDialog(false);
   };
+
+  const handleViewDetails = (course: CourseType) => {
+    setSelectedCourse(course);
+    setShowDetailDialog(true);
+  };
+  
+  const pageTitle = userRole === "admin" ? "School Courses" : "My Courses";
   
   return (
     <div className="pb-20">
       <div className="bg-gradient-to-r from-sky-600 to-ski-blue p-6 text-white">
-        <h1 className="text-xl font-bold mb-1">My Courses</h1>
-        <p className="text-white/70">Manage your ski lessons</p>
+        <h1 className="text-xl font-bold mb-1">{pageTitle}</h1>
+        <p className="text-white/70">
+          {userRole === "admin" ? "Manage school skiing lessons" : "Manage your ski lessons"}
+        </p>
       </div>
       
       <div className="p-4">
+        {userRole === "admin" && (
+          <div className="mb-4">
+            <Button className="w-full flex items-center gap-2">
+              <Plus size={16} />
+              Add New Course
+            </Button>
+          </div>
+        )}
+        
         <Tabs defaultValue="upcoming">
           <TabsList className="w-full">
             <TabsTrigger value="upcoming" className="flex-1">Upcoming</TabsTrigger>
@@ -41,14 +77,15 @@ const MyCourses: React.FC = () => {
                 key={course.id} 
                 course={course} 
                 showCheckIn={true}
+                onViewDetails={() => handleViewDetails(course)}
               />
             ))}
             
             {upcomingCourses.length === 0 && (
               <EmptyState 
-                message="You don't have any upcoming courses"
-                action="Book a lesson"
-                actionLink="/find-instructor"
+                message={userRole === "admin" ? "No upcoming courses" : "You don't have any upcoming courses"}
+                action={userRole === "admin" ? "Add a course" : "Book a lesson"}
+                actionLink={userRole === "admin" ? "/courses/new" : "/find-instructor"}
               />
             )}
           </TabsContent>
@@ -58,16 +95,17 @@ const MyCourses: React.FC = () => {
               <CourseCard 
                 key={course.id} 
                 course={course}
-                showRating={!course.hasRated}
+                showRating={!course.hasRated && userRole === "student"}
                 onRate={() => handleRateCourse(course)}
+                onViewDetails={() => handleViewDetails(course)}
               />
             ))}
             
             {completedCourses.length === 0 && (
               <EmptyState 
-                message="You haven't completed any courses yet"
-                action="Book your first lesson"
-                actionLink="/find-instructor"
+                message={userRole === "admin" ? "No completed courses yet" : "You haven't completed any courses yet"}
+                action={userRole === "admin" ? "Add your first course" : "Book your first lesson"}
+                actionLink={userRole === "admin" ? "/courses/new" : "/find-instructor"}
               />
             )}
           </TabsContent>
@@ -82,35 +120,31 @@ const MyCourses: React.FC = () => {
         rating={rating}
         setRating={setRating}
       />
+      
+      <CourseDetailDialog
+        open={showDetailDialog}
+        onClose={() => setShowDetailDialog(false)}
+        course={selectedCourse}
+        userRole={userRole || undefined}
+      />
     </div>
   );
 };
-
-interface CourseType {
-  id: string;
-  title: string;
-  instructorName: string;
-  instructorImage: string;
-  date: string;
-  time: string;
-  resort: string;
-  level: string;
-  hasRated?: boolean;
-  isStarted?: boolean;
-}
 
 interface CourseCardProps {
   course: CourseType;
   showRating?: boolean;
   showCheckIn?: boolean;
   onRate?: () => void;
+  onViewDetails: () => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({ 
   course, 
   showRating = false,
   showCheckIn = false,
-  onRate 
+  onRate,
+  onViewDetails
 }) => {
   return (
     <Card>
@@ -152,20 +186,18 @@ const CourseCard: React.FC<CourseCardProps> = ({
         <div className="flex justify-between">
           {showCheckIn && (
             course.isStarted ? (
-              <Button size="sm" variant="default" asChild>
-                <a href="/location-tracking">
-                  Track Location
-                </a>
+              <Button size="sm" variant="default" onClick={onViewDetails}>
+                Track Location
               </Button>
             ) : (
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" onClick={onViewDetails}>
                 View Details
               </Button>
             )
           )}
           
           {!showCheckIn && !showRating && (
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="outline" onClick={onViewDetails}>
               View Details
             </Button>
           )}
@@ -176,7 +208,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
             </Button>
           )}
           
-          <Button size="sm" variant="ghost" className="px-2">
+          <Button size="sm" variant="ghost" className="px-2" onClick={onViewDetails}>
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>

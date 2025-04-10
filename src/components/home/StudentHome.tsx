@@ -1,12 +1,43 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, Calendar, Star, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
+import CourseDetailDialog from "@/components/course/CourseDetailDialog";
+import { CourseType } from "@/pages/MyCourses";
 
 const StudentHome: React.FC = () => {
+  const [showCourseDetail, setShowCourseDetail] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<CourseType | null>(null);
+
+  const upcomingCourse: CourseType = {
+    id: "1",
+    title: "Beginner Ski Lesson",
+    instructorName: "Mike Chen",
+    instructorImage: "https://images.unsplash.com/photo-1618886614638-80e3c103d465?q=80&w=200&h=200&auto=format&fit=crop",
+    date: "Tomorrow",
+    time: "9:00 AM - 11:00 AM",
+    resort: "Whistler Blackcomb, Green Slope",
+    level: "Beginner",
+    isStarted: false
+  };
+
+  const handleBookSpecialDeal = () => {
+    toast.success("Special deal booked! Check your email for confirmation.");
+  };
+
+  const handleViewCourseDetails = () => {
+    setSelectedCourse(upcomingCourse);
+    setShowCourseDetail(true);
+  };
+
+  const handleCheckIn = () => {
+    toast.success("Successfully checked in to your lesson!");
+  };
+
   return (
     <div className="pb-20">
       <div className="bg-gradient-to-r from-ski-purple to-ski-blue p-6 text-white">
@@ -111,7 +142,11 @@ const StudentHome: React.FC = () => {
                 </div>
                 <h3 className="text-lg font-bold mb-1">20% Off Group Classes</h3>
                 <p className="text-xs text-white/80 mb-2">Valid until Dec 15, 2025</p>
-                <Button size="sm" className="bg-white text-ski-orange hover:bg-white/90 mt-1">
+                <Button 
+                  size="sm" 
+                  className="bg-white text-ski-orange hover:bg-white/90 mt-1"
+                  onClick={handleBookSpecialDeal}
+                >
                   Book Now
                 </Button>
               </div>
@@ -141,13 +176,20 @@ const StudentHome: React.FC = () => {
                 <span>Dec 10, 9:00 AM - 11:00 AM</span>
               </div>
               <div className="mt-3 flex justify-between">
-                <Button variant="outline" size="sm">View Details</Button>
-                <Button size="sm">Check In</Button>
+                <Button variant="outline" size="sm" onClick={handleViewCourseDetails}>View Details</Button>
+                <Button size="sm" onClick={handleCheckIn}>Check In</Button>
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
+
+      <CourseDetailDialog
+        open={showCourseDetail}
+        onClose={() => setShowCourseDetail(false)}
+        course={selectedCourse}
+        userRole="student"
+      />
     </div>
   );
 };

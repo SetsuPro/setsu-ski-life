@@ -22,22 +22,22 @@ const AdminNavbar: React.FC = () => {
           isActive={getActiveClass("/home")} 
         />
         <NavItem 
-          to="/instructors" 
+          to="/my-courses" 
           icon={<Users size={20} />} 
-          label="Instructors" 
-          isActive={getActiveClass("/instructors")} 
+          label="Courses" 
+          isActive={getActiveClass("/my-courses")} 
         />
         <NavItem 
-          to="/finances" 
+          to="/payments" 
           icon={<DollarSign size={20} />} 
-          label="Finances" 
-          isActive={getActiveClass("/finances")} 
+          label="Payments" 
+          isActive={getActiveClass("/payments")} 
         />
         <NavItem 
-          to="/settings" 
+          to="/school-settings" 
           icon={<Settings size={20} />} 
           label="Settings" 
-          isActive={getActiveClass("/settings")} 
+          isActive={getActiveClass("/school-settings")} 
         />
       </div>
     </div>

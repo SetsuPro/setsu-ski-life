@@ -22,6 +22,9 @@ import Finances from "./pages/Finances";
 import Settings from "./pages/Settings";
 import FindInstructor from "./pages/FindInstructor";
 import FindCourses from "./pages/FindCourses";
+import Payments from "./pages/Payments";
+import SchoolSettings from "./pages/SchoolSettings";
+import Statistics from "./pages/Statistics";
 
 // Layout
 import Navbar from "./components/layout/Navbar";
@@ -51,6 +54,9 @@ const App = () => (
             <Route path="/settings" element={<Settings />} />
             <Route path="/find-instructor" element={<FindInstructor />} />
             <Route path="/find-courses" element={<FindCourses />} />
+            <Route path="/payments" element={<Payments />} />
+            <Route path="/school-settings" element={<SchoolSettings />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
