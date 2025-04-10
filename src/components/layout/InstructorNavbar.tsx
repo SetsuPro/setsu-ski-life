@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Calendar, DollarSign, FileText, User } from "lucide-react";
+import { Home, Calendar, Book, DollarSign, User } from "lucide-react";
 
 const InstructorNavbar: React.FC = () => {
   const location = useLocation();
@@ -28,16 +28,16 @@ const InstructorNavbar: React.FC = () => {
           isActive={getActiveClass("/schedule")} 
         />
         <NavItem 
-          to="/earnings" 
-          icon={<DollarSign size={20} />} 
-          label="Earnings" 
-          isActive={getActiveClass("/earnings")} 
+          to="/course-assets" 
+          icon={<Book size={20} />} 
+          label="Course Assets" 
+          isActive={getActiveClass("/course-assets")} 
         />
         <NavItem 
-          to="/statistics" 
-          icon={<FileText size={20} />} 
-          label="Stats" 
-          isActive={getActiveClass("/statistics")} 
+          to="/status-earnings" 
+          icon={<DollarSign size={20} />} 
+          label="Status & Earnings" 
+          isActive={getActiveClass("/status-earnings")} 
         />
         <NavItem 
           to="/profile" 
